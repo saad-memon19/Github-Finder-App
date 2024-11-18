@@ -25,8 +25,8 @@ var getUser = async (username) => {
           src="${data.avatar_url}"
           alt="Avatar"
         />
-<h1 class="text-white mt-7 font-bold ">Name: ${data.name}</h1>
-<h1 class="text-white mt-7 text-center align-baseline">Bio: ${data.bio}</h1>
+        <h1 class="text-white mt-7 font-bold ">Name: ${data.name}</h1>
+        <h1 class="text-white mt-7 text-center align-baseline">Bio: ${data.bio}</h1>
 
         <ul class="text-white flex space-x-20 mt-5">
           <li>Followers: ${data.followers}</li>
@@ -36,17 +36,18 @@ var getUser = async (username) => {
       </div>
     `;
         main.innerHTML = card;
-
-        // Attach search form event listener again
-        document.querySelector("#searchForm").addEventListener("submit", (e) => {
-            e.preventDefault();
-            var username = document.querySelector("#search").value.trim();
-            if (username) getUser(username);
-        });
     } catch (error) {
         main.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
     }
 };
 
-// Call the function for the default user
+// Attach event listener once on load
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#main").addEventListener("submit", (e) => {
+        e.preventDefault();
+        var username = document.querySelector("#search").value.trim();
+        if (username) getUser(username);
+    });
+});
+
 getUser("rizwanjamal");
